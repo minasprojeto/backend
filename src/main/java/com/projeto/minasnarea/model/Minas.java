@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tb_temas")
-public class MinasModel {
+public class Minas {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
