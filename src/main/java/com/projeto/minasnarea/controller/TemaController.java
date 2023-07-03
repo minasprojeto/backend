@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 
-import com.projeto.minasnarea.model.Minas;
+import com.projeto.minasnarea.model.Tema;
 import com.projeto.minasnarea.repository.TemaRepository;
 
 import jakarta.validation.Valid;
@@ -25,11 +25,11 @@ public class TemaController {
 	
 	
 	@GetMapping
-	public ResponseEntity<List<Minas>> getAll(){
+	public ResponseEntity<List<Tema>> getAll(){
 		return ResponseEntity.ok(temaRepository.findAll());
 	}
 	@GetMapping("/{id}")
-	public ResponseEntity<Minas> getById(@PathVariable Long id){
+	public ResponseEntity<Tema> getById(@PathVariable Long id){
 		
 		return temaRepository.findById(id)
 				.map(resposta -> ResponseEntity.ok(resposta))
@@ -37,19 +37,19 @@ public class TemaController {
 	}
 	
 	@GetMapping("/descricao/{descricao}")
-	public ResponseEntity<List<Minas>> getByDescricao(@PathVariable String descricao){
+	public ResponseEntity<List<Tema>> getByDescricao(@PathVariable String descricao){
 		return ResponseEntity.ok(temaRepository.findAllByDescricaoContainingIgnoreCase(descricao));
 		
 	}
 	
 	 @PostMapping
-	    public ResponseEntity<Minas> post(@Valid @RequestBody Minas tema){
+	    public ResponseEntity<Tema> post(@Valid @RequestBody Tema tema){
 	        return ResponseEntity.status(HttpStatus.CREATED)
 	        .body(temaRepository.save(tema));
 	    }
 	    
 	    @PutMapping
-	    public ResponseEntity<Minas> put(@Valid @RequestBody Minas tema){
+	    public ResponseEntity<Tema> put(@Valid @RequestBody Tema tema){
 	        return temaRepository.findById(tema.getId())
 	        .map(resposta -> ResponseEntity.status(HttpStatus.CREATED)
 	        .body(temaRepository.save(tema)))
@@ -59,7 +59,7 @@ public class TemaController {
 	    @ResponseStatus(HttpStatus.NO_CONTENT)
 	    @DeleteMapping("/{id}")
 	    public void delete(@PathVariable Long id) {
-	        Optional<Minas> tema = temaRepository.findById(id);
+	        Optional<Tema> tema = temaRepository.findById(id);
 	        
 	        if(tema.isEmpty())
 	            throw new ResponseStatusException(HttpStatus.NOT_FOUND);

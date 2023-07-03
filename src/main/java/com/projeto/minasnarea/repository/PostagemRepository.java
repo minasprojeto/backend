@@ -8,5 +8,5 @@ import com.projeto.minasnarea.model.*;
 
 public interface PostagemRepository extends JpaRepository<Postagem, Long>  {
 	
-	public List <Minas> findAllByTituloContainingIgnoreCase(@Param("titulo") String titulo);
+	public List <Tema> findAllByTituloContainingIgnoreCase(@Param("titulo") String titulo);
 	}

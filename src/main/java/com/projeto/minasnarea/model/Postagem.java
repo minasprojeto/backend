@@ -38,7 +38,7 @@ public class Postagem {
 	
 	@ManyToOne
 	@JsonIgnoreProperties("postagem")
-	private Minas tema;
+	private Tema tema;
 	
 	// get e set
 	
@@ -74,11 +74,11 @@ public class Postagem {
 		this.data = data;
 	}
 
-	public Minas getTema() {
+	public Tema getTema() {
 		return tema;
 	}
 
-	public void setMinas(Minas tema) {
+	public void setMinas(Tema tema) {
 		this.tema = tema;
 	}	
 }

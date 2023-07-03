@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.projeto.minasnarea.model.Minas;
+import com.projeto.minasnarea.model.Tema;
 import com.projeto.minasnarea.model.Postagem;
 import com.projeto.minasnarea.repository.PostagemRepository;
 import com.projeto.minasnarea.repository.TemaRepository;
@@ -47,7 +47,7 @@ public class PostagemController {
 		.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 }  
 	@GetMapping("/titulo/{titulo}")
-     public ResponseEntity<List<Minas>> getByTitulo(@PathVariable String titulo){
+     public ResponseEntity<List<Tema>> getByTitulo(@PathVariable String titulo){
 	 return ResponseEntity.ok(postagemRepository.findAllByTituloContainingIgnoreCase(titulo));
 } 
 	@PostMapping
