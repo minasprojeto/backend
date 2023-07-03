@@ -29,46 +29,41 @@ public class TemaController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Minas> getById(@PathVariable Long id){
 		
-		return postagemRepository.findById(id)
+		return temaRepository.findById(id)
 				.map(resposta -> ResponseEntity.ok(resposta))
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 	
 	@GetMapping("/descricao/{descricao}")
 	public ResponseEntity<List<Minas>> getByDescricao(@PathVariable String descricao){
-		return ResponseEntity.ok(postagemRepository.findAllByDescricaoContainingIgnoreCase(descricao));
+		return ResponseEntity.ok(temaRepository.findAllByDescricaoContainingIgnoreCase(descricao));
 		
 	}
 	
-	@PostMapping	
-	public ResponseEntity<Postagem> post(@Valid @RequestBody Postagem postagem){
-		if(temaRepository.existsById(postagem.getTema().getId()))
-		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(postagemRepository.save(postagem));
-		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tema não existe!", null);
-	}
-	@PutMapping
-	public ResponseEntity<Postagem> put(@Valid @RequestBody Postagem postagem){
-		if(postagemRepository.existsById(postagem.getId())) {
-		
-			if(temaRepository.existsById(postagem.getTema().getId()))
-		return ResponseEntity.status(HttpStatus.OK)
-				.body(postagemRepository.save(postagem));
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tema não existe", null);
-				
-	}
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-	}
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@DeleteMapping("/{id}")
-	public void delete(@PathVariable Long id) {
-		Optional<Postagem> postagem = postagemRepository.findById(id);
-		
-		if (postagem.isEmpty())
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-		postagemRepository.deleteById(id);
-	}
-	
+	 @PostMapping
+	    public ResponseEntity<Minas> post(@Valid @RequestBody Minas tema){
+	        return ResponseEntity.status(HttpStatus.CREATED)
+	        .body(temaRepository.save(tema));
+	    }
+	    
+	    @PutMapping
+	    public ResponseEntity<Minas> put(@Valid @RequestBody Minas tema){
+	        return temaRepository.findById(tema.getId())
+	        .map(resposta -> ResponseEntity.status(HttpStatus.CREATED)
+	        .body(temaRepository.save(tema)))
+	        .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+	    }
+	    
+	    @ResponseStatus(HttpStatus.NO_CONTENT)
+	    @DeleteMapping("/{id}")
+	    public void delete(@PathVariable Long id) {
+	        Optional<Minas> tema = temaRepository.findById(id);
+	        
+	        if(tema.isEmpty())
+	            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+	        
+	        temaRepository.deleteById(id);              
+	    }
 }
 
-}
+
