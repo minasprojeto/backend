@@ -45,7 +45,6 @@ public class SwaggerConfig {
 		};
 	}
 	private ApiResponse createApiResponse(String message) {
-		// TODO Auto-generated method stub
 		return new ApiResponse().description(message);
 	}
 }
